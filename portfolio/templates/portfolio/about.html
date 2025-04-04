@@ -1,0 +1,40 @@
+{% extends 'portfolio/base.html' %}
+
+{% block content %}
+<div class="container mt-5 text-center">
+    <h1 class="display-4 fw-bold mb-3">About Me</h1>
+    <p class="lead text-muted mb-4">
+        Hello! I’m Edsel — a dedicated software developer who enjoys building simple, reliable, and clean web applications.
+    </p>
+    <p class="mb-3 fw-semibold">
+        Skills:
+    </p>
+    <ul class="list-unstyled mb-4">
+        <li>• Python & Django (backend development)</li>
+        <li>• HTML, CSS, Bootstrap (responsive design)</li>
+        <li>• Git & GitHub (version control)</li>
+        <li>• Focused on writing clean, minimal, and maintainable code</li>
+    </ul>
+    <p class="mb-3 fw-semibold">
+        Contact Me:
+    </p>
+    <ul class="list-unstyled mb-5">
+        <li>Email: <a href="mailto:edselpisuena@gmail.com" class="text-dark">edselpisuena@gmail.com</a></li>
+        <li>LinkedIn: <a href="https://www.linkedin.com/in/edselpisue%C3%B1a/" target="_blank" class="text-dark">linkedin.com/in/edselpisueña</a></li>
+        <li>GitHub: <a href="https://github.com/secrescence" target="_blank" class="text-dark">github.com/secrescence</a></li>
+    </ul>
+    <div class="d-flex justify-content-center gap-3">
+        <a href="{% url 'projects' %}" class="btn btn-dark px-4 py-2">View Projects</a>
+        <a href="{% url 'portfolio' %}" class="btn btn-outline-dark px-4 py-2">Back to Home</a>
+    </div>
+</div>
+
+<style>
+ul li {
+    margin-bottom: 0.5rem;
+}
+a.text-dark:hover {
+    text-decoration: underline;
+}
+</style>
+{% endblock %}

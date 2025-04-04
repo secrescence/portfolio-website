@@ -1,0 +1,29 @@
+{% extends 'portfolio/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container text-center mt-5">
+    <h1 class="display-3 fw-bold mb-3">Hello, I'm Edsel Pisueña</h1>
+    <p class="fs-4 mb-3 text-dark">Software Developer | Focused on Crafting Clean & Efficient Code</p>
+    <p class="text-muted mb-5 fs-5">
+        Skilled in Django, Python, HTML, CSS, and Bootstrap.  
+        I create well-structured, scalable web applications with attention to detail and usability.
+    </p>
+    <div class="d-flex justify-content-center gap-3">
+        <a href="{% url 'projects' %}" class="btn btn-dark px-4 py-2 rounded-pill shadow-sm">Explore Projects</a>
+        <a href="{% url 'about' %}" class="btn btn-outline-dark px-4 py-2 rounded-pill">Learn More About Me</a>
+    </div>
+</div>
+
+<style>
+h1, p, a {
+    transition: all 0.3s ease-in-out;
+}
+h1:hover {
+    letter-spacing: 1px;
+}
+.btn-dark:hover, .btn-outline-dark:hover {
+    opacity: 0.85;
+}
+</style>
+{% endblock %}
