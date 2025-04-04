@@ -11,3 +11,14 @@ class Project(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Resume(models.Model):
+    name = models.CharField(max_length=100, default="My Resume")
+    file_url = models.URLField(
+        max_length=500,
+        help_text="Link to your resume (e.g., Google Drive, GitHub, etc.)",
+    )
+
+    def __str__(self):
+        return self.name
