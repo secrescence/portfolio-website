@@ -4,40 +4,41 @@
 {% block content %}
 <div class="container my-5">
   <h2 class="text-center mb-5 fw-bold" style="font-size: 2.5rem;">Projects</h2>
+  
+  <!-- CHANGE 2: Added conditional check for projects -->
+  {% if projects %}
   <div class="row row-cols-1 row-cols-md-3 g-4">
-
-    <!-- Portfolio Card -->
+    {% for project in projects %}
     <div class="col">
       <div class="card h-100 project-card">
-        <img src="{% static 'images/portfolio.jpg' %}" class="card-img-top project-img" alt="Portfolio">
+        <!-- CHANGE 1: Added conditional check for images -->
+        {% if project.image %}
+            <img src="{{ project.image.url }}" class="card-img-top project-img" alt="{{ project.title }}">
+        {% else %}
+            <div class="card-img-top d-flex align-items-center justify-content-center bg-light" style="height: 200px;">
+                <p class="text-muted">No image available</p>
+            </div>
+        {% endif %}
         <div class="card-body text-center">
-          <h5 class="card-title project-title">Portfolio</h5>
-          <p class="card-text text-muted small">A portfolio site to showcase my projects and skills.</p>
+          <h5 class="card-title project-title">{{ project.title }}</h5>
+          <p class="card-text text-muted small">{{ project.description }}</p>
         </div>
         <div class="card-footer text-center border-0 bg-transparent">
-          <a href="{% url 'portfolio' %}" class="btn btn-outline-dark px-4">View Project</a>
+          <a href="{{ project.url }}" class="btn btn-outline-dark px-4" target="_blank">View Project</a>
         </div>
       </div>
     </div>
-
-    <!-- Blog Card -->
-    <div class="col">
-      <div class="card h-100 project-card">
-        <img src="{% static 'images/blog.jpg' %}" class="card-img-top project-img" alt="Blog">
-        <div class="card-body text-center">
-          <h5 class="card-title project-title">Inside Secre</h5>
-          <p class="card-text text-muted small">A simple blog built with Django where I write and share ideas.</p>
-        </div>
-        <div class="card-footer text-center border-0 bg-transparent">
-          <a href="{% url 'portfolio' %}" class="btn btn-outline-dark px-4">Go to Blog</a>
-        </div>
-      </div>
-    </div>
-
+    {% endfor %}
   </div>
+  {% else %}
+  <div class="text-center my-5">
+    <p class="text-muted">No projects available yet. Check back soon!</p>
+  </div>
+  {% endif %}
 </div>
 
 <style>
+/* Your existing styles remain unchanged */
 .project-card {
   border-radius: 16px;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
