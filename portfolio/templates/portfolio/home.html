@@ -1,29 +1,25 @@
 {% extends 'portfolio/base.html' %}
 {% load static %}
 
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock %}
+
 {% block content %}
 <div class="container text-center mt-5">
-    <h1 class="display-3 fw-bold mb-3">Hello, I'm Edsel Pisueña</h1>
-    <p class="fs-4 mb-3 text-dark">Software Developer | Focused on Crafting Clean & Efficient Code</p>
-    <p class="text-muted mb-5 fs-5">
-        Skilled in Django, Python, HTML, CSS, and Bootstrap.  
-        I create well-structured, scalable web applications with attention to detail and usability.
+    <!-- Hero Section -->
+    <h1 class="display-3 fw-bold mb-3 animate-fade">Hi, I'm Edsel Pisueña</h1>
+    <p class="fs-4 mb-3 text-dark animate-fade delay-1">
+        Web developer focused on building clean, scalable Django applications with modern web technologies.
     </p>
+    <p class="text-muted mb-5 fs-5 animate-fade delay-2">
+        I value collaboration and continuous learning, writing code that's both efficient and easy to work with. Always open to working on interesting projects, contributing to open-source, and growing with other developers.
+    </p>
+
+    <!-- Action Buttons -->
     <div class="d-flex justify-content-center gap-3">
-        <a href="{% url 'projects' %}" class="btn btn-dark px-4 py-2 rounded-pill shadow-sm">Explore Projects</a>
-        <a href="{% url 'about' %}" class="btn btn-outline-dark px-4 py-2 rounded-pill">Learn More About Me</a>
+        <a href="{% url 'projects' %}" class="btn btn-dark px-4 py-2 shadow-sm animate-fade delay-3">Explore Projects</a>
+        <a href="{% url 'about' %}" class="btn btn-outline-dark px-4 py-2 animate-fade delay-4">Learn More About Me</a>
     </div>
 </div>
-
-<style>
-h1, p, a {
-    transition: all 0.3s ease-in-out;
-}
-h1:hover {
-    letter-spacing: 1px;
-}
-.btn-dark:hover, .btn-outline-dark:hover {
-    opacity: 0.85;
-}
-</style>
 {% endblock %}
