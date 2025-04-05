@@ -1,40 +1,65 @@
 {% extends 'portfolio/base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/about.css' %}">
+{% endblock %}
 
 {% block content %}
-<div class="container mt-5 text-center">
-    <h1 class="display-4 fw-bold mb-3">About Me</h1>
-    <p class="lead text-muted mb-4">
-        Hello! I’m Edsel — a dedicated software developer who enjoys building simple, reliable, and clean web applications.
-    </p>
-    <p class="mb-3 fw-semibold">
-        Skills:
-    </p>
-    <ul class="list-unstyled mb-4">
-        <li>• Python & Django (backend development)</li>
-        <li>• HTML, CSS, Bootstrap (responsive design)</li>
-        <li>• Git & GitHub (version control)</li>
-        <li>• Focused on writing clean, minimal, and maintainable code</li>
-    </ul>
-    <p class="mb-3 fw-semibold">
-        Contact Me:
-    </p>
-    <ul class="list-unstyled mb-5">
-        <li>Email: <a href="mailto:edselpisuena@gmail.com" class="text-dark">edselpisuena@gmail.com</a></li>
-        <li>LinkedIn: <a href="https://www.linkedin.com/in/edselpisue%C3%B1a/" target="_blank" class="text-dark">linkedin.com/in/edselpisueña</a></li>
-        <li>GitHub: <a href="https://github.com/secrescence" target="_blank" class="text-dark">github.com/secrescence</a></li>
-    </ul>
-    <div class="d-flex justify-content-center gap-3">
+<div class="container my-5">
+    <!-- Hero Section -->
+    <div class="text-center mb-5">
+        <h1 class="display-4 fw-bold mb-3 animate-fade">Hey, I'm Edsel 👋</h1>
+        <p class="lead text-muted animate-fade delay-1">
+            A passionate web developer who loves crafting clean and purposeful web experiences.
+        </p>
+    </div>
+
+    <!-- About Details -->
+    <div class="row align-items-center justify-content-center mb-5">
+        <div class="col-md-6 mb-4 animate-slide-left">
+            <h3 class="fw-semibold mb-3">What I Do</h3>
+            <p class="text-muted">
+                I specialize in building modern web applications using <strong>Python & Django</strong> for the backend and <strong>HTML, CSS, Bootstrap</strong> for the frontend. 
+                I'm committed to writing maintainable, efficient code, and continuously learning new technologies. 
+                I also value collaboration, enjoy working on open-source projects, and actively volunteer to help others in the developer community.
+            </p>
+        </div>
+        <div class="col-md-5 animate-slide-right">
+            <div class="border rounded p-4 shadow-sm">
+                <h5 class="fw-semibold mb-3">Core Skills</h5>
+                <ul class="list-unstyled text-muted">
+                    <li>• Python & Django (Backend)</li>
+                    <li>• HTML, CSS, Bootstrap (Frontend)</li>
+                    <li>• JavaScript (Interactive Frontend)</li>
+                    <li>• Git & GitHub (Version Control)</li>
+                    <li>• Clean Code & Minimal UI/UX</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Section -->
+    <div class="text-center mb-5 animate-fade delay-2">
+        <h3 class="fw-semibold mb-3">Let's Connect</h3>
+        <p class="text-muted mb-3">Feel free to reach out via any of the platforms below:</p>
+        <ul class="list-inline">
+            <li class="list-inline-item mx-2">
+                <a href="mailto:edselpisuena@gmail.com" class="btn btn-outline-dark px-3 py-2">Email</a>
+            </li>
+            <li class="list-inline-item mx-2">
+                <a href="https://www.linkedin.com/in/edselpisuena/" target="_blank" class="btn btn-outline-dark px-3 py-2">LinkedIn</a>
+            </li>
+            <li class="list-inline-item mx-2">
+                <a href="https://github.com/secrescence" target="_blank" class="btn btn-outline-dark px-3 py-2">GitHub</a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Call to Action -->
+    <div class="d-flex justify-content-center gap-3 animate-fade delay-3">
         <a href="{% url 'projects' %}" class="btn btn-dark px-4 py-2">View Projects</a>
         <a href="{% url 'portfolio' %}" class="btn btn-outline-dark px-4 py-2">Back to Home</a>
     </div>
 </div>
-
-<style>
-ul li {
-    margin-bottom: 0.5rem;
-}
-a.text-dark:hover {
-    text-decoration: underline;
-}
-</style>
 {% endblock %}

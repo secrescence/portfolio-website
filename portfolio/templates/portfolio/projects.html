@@ -1,85 +1,49 @@
 {% extends 'portfolio/base.html' %}
 {% load static %}
 
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/projects.css' %}">
+{% endblock %}
+
 {% block content %}
 <div class="container my-5">
-  <h2 class="text-center mb-5 fw-bold" style="font-size: 2.5rem;">Projects</h2>
-  
-  <!-- CHANGE 2: Added conditional check for projects -->
-  {% if projects %}
+  <!-- Hero Section for Projects -->
+  <div class="text-center mb-5">
+    <h1 class="display-4 fw-bold mb-3 animate-fade">My Projects</h1>
+    <p class="lead text-muted animate-fade delay-1">
+        Check out some of the exciting projects I've worked on. I love building clean and scalable web applications using modern technologies like Django, React, and more.
+    </p>
+  </div>
+
+  <!-- Project List Section -->
   <div class="row row-cols-1 row-cols-md-3 g-4">
-    {% for project in projects %}
-    <div class="col">
-      <div class="card h-100 project-card">
-        <!-- CHANGE 1: Added conditional check for images -->
-        {% if project.image %}
+    {% if projects %}
+      {% for project in projects %}
+      <div class="col mb-4 animate-slide-left">
+        <div class="card h-100 project-card">
+          {% if project.image %}
             <img src="{{ project.image.url }}" class="card-img-top project-img" alt="{{ project.title }}">
-        {% else %}
+          {% else %}
             <div class="card-img-top d-flex align-items-center justify-content-center bg-light" style="height: 200px;">
                 <p class="text-muted">No image available</p>
             </div>
-        {% endif %}
-        <div class="card-body text-center">
-          <h5 class="card-title project-title">{{ project.title }}</h5>
-          <p class="card-text text-muted small">{{ project.description }}</p>
-        </div>
-        <div class="card-footer text-center border-0 bg-transparent">
-          <a href="{{ project.url }}" class="btn btn-outline-dark px-4" target="_blank">View Project</a>
+          {% endif %}
+          <div class="card-body text-center">
+            <h5 class="card-title project-title">{{ project.title }}</h5>
+            <p class="card-text text-muted small">{{ project.description }}</p>
+          </div>
+          <div class="card-footer text-center border-0 bg-transparent">
+            <a href="{{ project.url }}" class="btn btn-outline-dark px-4" target="_blank">View Project</a>
+          </div>
         </div>
       </div>
+      {% endfor %}
+    {% else %}
+    <div class="text-center my-5 animate-fade delay-2">
+      <p class="text-muted">No projects available yet. Check back soon!</p>
     </div>
-    {% endfor %}
+    {% endif %}
   </div>
-  {% else %}
-  <div class="text-center my-5">
-    <p class="text-muted">No projects available yet. Check back soon!</p>
-  </div>
-  {% endif %}
-</div>
 
-<style>
-/* Your existing styles remain unchanged */
-.project-card {
-  border-radius: 16px;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
-  transition: all 0.3s ease;
-}
-.project-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
-}
-.project-img {
-  border-top-left-radius: 16px;
-  border-top-right-radius: 16px;
-  filter: grayscale(100%);
-  transition: filter 0.3s ease;
-}
-.project-card:hover .project-img {
-  filter: grayscale(0%);
-}
-.project-title {
-  position: relative;
-  display: inline-block;
-}
-.project-title::after {
-  content: "";
-  position: absolute;
-  bottom: -4px;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background-color: #000;
-  transition: width 0.3s;
-}
-.project-card:hover .project-title::after {
-  width: 100%;
-}
-.btn-outline-dark {
-  transition: all 0.3s ease;
-}
-.btn-outline-dark:hover {
-  background-color: #000;
-  color: #fff;
-}
-</style>
+</div>
 {% endblock %}
