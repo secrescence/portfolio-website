@@ -40,7 +40,7 @@ else:
 
 ALLOWED_HOSTS = ["localhost", "127.0.0.1", "secre-portfolio-dev.up.railway.app"]
 
-CRSF_TRUSTED_ORIGINS = ["https://secre-portfolio-dev.up.railway.app/"]
+CRSF_TRUSTED_ORIGINS = ["https://secre-portfolio-dev.up.railway.app"]
 
 # Application definition
 
