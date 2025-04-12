@@ -19,22 +19,16 @@
     <div class="row align-items-center justify-content-center mb-5">
         <div class="col-md-6 mb-4 animate-slide-left">
             <h3 class="fw-semibold mb-3">What I Do</h3>
-            <p class="text-muted">
-                I specialize in building modern web applications using <strong>Python & Django</strong> for the backend and <strong>HTML, CSS, Bootstrap</strong> for the frontend. 
-                I'm committed to writing maintainable, efficient code, and continuously learning new technologies. 
-                I also value collaboration, enjoy working on open-source projects, and actively volunteer to help others in the developer community.
-            </p>
+            <div class="text-muted">
+                <p> {{ what_i_do|safe }} </p>
+            </div>
         </div>
         <div class="col-md-5 animate-slide-right">
             <div class="border rounded p-4 shadow-sm">
                 <h5 class="fw-semibold mb-3">Core Skills</h5>
-                <ul class="list-unstyled text-muted">
-                    <li>• Python & Django (Backend)</li>
-                    <li>• HTML, CSS, Bootstrap (Frontend)</li>
-                    <li>• JavaScript (Interactive Frontend)</li>
-                    <li>• Git & GitHub (Version Control)</li>
-                    <li>• Clean Code & Minimal UI/UX</li>
-                </ul>
+                <div class="text-muted">
+                    <p> {{ core_skills|safe }} </p>
+                </div>
             </div>
         </div>
     </div>
