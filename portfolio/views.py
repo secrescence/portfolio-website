@@ -15,10 +15,6 @@ def about(request):
     return render(request, "portfolio/about.html")
 
 
-def projects(request):
-    return render(request, "portfolio/projects.html")
-
-
 @cache_page(60 * 15)  # Cache for 15 minutes
 def projects(request):
     projects_list = Project.objects.all()
