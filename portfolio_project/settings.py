@@ -96,11 +96,13 @@ WSGI_APPLICATION = "portfolio_project.wsgi.application"
 #   "default": {"ENGINE": "django.db.backends.sqlite3", "NAME": BASE_DIR / "db.sqlite3"}
 # }
 DATABASES = {
-    "default": env.db(),  # Automatically reads DATABASE_URL
-    "CONN_MAX_AGE": 600,  # Keep connections open for 10 minutes
-    "OPTIONS": {
-        "connect_timeout": 10,  # 10 seconds
-    },
+    "default": {
+        **env.db(),  # Reads the DATABASE_URL environment variable
+        "CONN_MAX_AGE": 600,
+        "OPTIONS": {
+            "connect_timeout": 10,
+        },
+    }
 }
 
 
