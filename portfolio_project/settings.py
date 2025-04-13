@@ -143,7 +143,6 @@ USE_TZ = True
 STATIC_URL = "static/"
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
-WHITENOISE_MAX_AGE = 604800  # 7 days in seconds. Optimize static files for caching
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static")
