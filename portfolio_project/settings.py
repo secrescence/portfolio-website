@@ -38,9 +38,9 @@ if ENVIRONMENT == "development":
 else:
     DEBUG = False
 
-ALLOWED_HOSTS = ["localhost", "127.0.0.1", "secre-portfolio-dev.up.railway.app"]
+ALLOWED_HOSTS = ["localhost", "127.0.0.1", "secrescence-portfolio.up.railway.app"]
 
-CSRF_TRUSTED_ORIGINS = ["https://secre-portfolio-dev.up.railway.app"]
+CSRF_TRUSTED_ORIGINS = ["https://secrescence-portfolio.up.railway.app"]
 
 # Application definition
 
@@ -152,7 +152,6 @@ STATIC_ROOT = os.path.join(
 )  # Where static files will be collected in production
 
 MEDIA_URL = "/media/"
-
 
 if ENVIRONMENT == "production":
     DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
