@@ -4,14 +4,14 @@ A responsive, full-stack personal portfolio built with Django and PostgreSQL —
 
 ## 📌 About
 
-This is my personal portfolio website built using Django. It serves as a hub for my work and career as a backend developer. Here, visitors can explore my featured projects and download my resume.
+This is my personal portfolio website built using Django. It serves as a hub for my work and career as a web developer. Here, visitors can explore my featured projects and download my resume.
 
 I'm continuously improving and updating this site as I grow and learn more in my journey as a developer.
 
 ## ✨ Features
 
 - 🧩 **Project Gallery** – Browse through featured projects with visuals and descriptions  
-- ➕ **Dynamic Content Management** – Easily update, add, or remove projects and resume via Django Admin  
+- ➕ **Dynamic Content Management** – Easily update, add, or remove projects, resume, and even the About section via Django Admin
 - 📄 **Resume Download** – View and download my resume in PDF format  
 - 🛠 **Skills & Tools** – Highlights of the tech stack and tools I work with  
 - 📱 **Mobile-Friendly** – Fully responsive design optimized for both desktop and mobile
