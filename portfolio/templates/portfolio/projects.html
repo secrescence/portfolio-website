@@ -22,7 +22,7 @@
       <div class="col mb-4 animate-slide-left">
         <div class="card h-100 project-card">
           {% if project.image %}
-            <img src="{{ project.image.url }}" class="card-img-top project-img" alt="{{ project.title }}">
+            <img src="{{ project.image.url }}" class="card-img-top project-img" alt="{{ project.title }}" loading="lazy">
           {% else %}
             <div class="card-img-top d-flex align-items-center justify-content-center bg-light" style="height: 200px;">
                 <p class="text-muted">No image available</p>
