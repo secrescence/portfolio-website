@@ -98,9 +98,7 @@ WSGI_APPLICATION = "portfolio_project.wsgi.application"
 if ENVIRONMENT == "production":
     DATABASES = {
         "default": {
-            **env.db_url(
-                env("DATABASE_URL")
-            ),  # use Railway's database URL for production to avoid egress fees
+            **env.db_url("DATABASE_URL"),  # no need to nest env() inside db_url()
             "CONN_MAX_AGE": 600,
             "OPTIONS": {
                 "connect_timeout": 10,
@@ -110,7 +108,7 @@ if ENVIRONMENT == "production":
 else:
     DATABASES = {
         "default": {
-            **env.db_url(env("DATABASE_PUBLIC_URL")),  # use public proxy for local/dev
+            **env.db_url("DATABASE_PUBLIC_URL"),
             "CONN_MAX_AGE": 600,
             "OPTIONS": {
                 "connect_timeout": 10,
