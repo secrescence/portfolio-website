@@ -12,11 +12,6 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 import os
-import dj_database_url
-from dotenv import load_dotenv
-
-# Load environment variables from .env file in development
-load_dotenv()
 from environ import Env
 import dj_database_url
 
@@ -33,23 +28,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get(
-    "SECRET_KEY", "django-insecure-xn-0=5r@uqn&wtq35rp4*t#*zkb9__3q0a)!ekcqxr=sv@c!vh"
-)
 SECRET_KEY = env("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
-
-ALLOWED_HOSTS = [
-    "localhost",
-    "127.0.0.1",
-    ".railway.app",  # Allows all subdomains on railway.app
-]
-
-# Add your custom domain if you have one
-if os.environ.get("RAILWAY_STATIC_URL"):
-    ALLOWED_HOSTS.append(os.environ.get("RAILWAY_STATIC_URL"))
 # This should be set to False in production
 # and DEBUG should be set to True in development
 if ENVIRONMENT == "development":
@@ -78,7 +59,6 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
-    "whitenoise.middleware.WhiteNoiseMiddleware",  # Add this line after SecurityMiddleware
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -112,7 +92,6 @@ WSGI_APPLICATION = "portfolio_project.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-# Ensures SQLite is used regardless of any DATABASE_URL environment variable
 # DATABASES = {
 #   "default": {"ENGINE": "django.db.backends.sqlite3", "NAME": BASE_DIR / "db.sqlite3"}
 # }
@@ -146,6 +125,18 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+# Internationalization
+# https://docs.djangoproject.com/en/5.2/topics/i18n/
+
+LANGUAGE_CODE = "en-us"
+
+TIME_ZONE = "UTC"
+
+USE_I18N = True
+
+USE_TZ = True
+
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
@@ -176,6 +167,7 @@ CLOUDINARY_STORAGE = {
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
+
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 ACCOUNT_USERNAME_BLACKLIST = ["admin", "tagapamahala"]
