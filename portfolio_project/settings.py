@@ -95,15 +95,28 @@ WSGI_APPLICATION = "portfolio_project.wsgi.application"
 # DATABASES = {
 #   "default": {"ENGINE": "django.db.backends.sqlite3", "NAME": BASE_DIR / "db.sqlite3"}
 # }
-DATABASES = {
-    "default": {
-        **env.db(),  # Reads the DATABASE_URL environment variable
-        "CONN_MAX_AGE": 600,
-        "OPTIONS": {
-            "connect_timeout": 10,
-        },
+if ENVIRONMENT == "production":
+    DATABASES = {
+        "default": {
+            **env.db_url(
+                env("DATABASE_URL")
+            ),  # use Railway's database URL for production to avoid egress fees
+            "CONN_MAX_AGE": 600,
+            "OPTIONS": {
+                "connect_timeout": 10,
+            },
+        }
     }
-}
+else:
+    DATABASES = {
+        "default": {
+            **env.db_url(env("DATABASE_PUBLIC_URL")),  # use public proxy for local/dev
+            "CONN_MAX_AGE": 600,
+            "OPTIONS": {
+                "connect_timeout": 10,
+            },
+        }
+    }
 
 
 # Password validation
