@@ -97,6 +97,10 @@ WSGI_APPLICATION = "portfolio_project.wsgi.application"
 # }
 DATABASES = {
     "default": env.db(),  # Automatically reads DATABASE_URL
+    "CONN_MAX_AGE": 600,  # Keep connections open for 10 minutes
+    "OPTIONS": {
+        "connect_timeout": 10,  # 10 seconds
+    },
 }
 
 
@@ -137,6 +141,7 @@ USE_TZ = True
 STATIC_URL = "static/"
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+WHITENOISE_MAX_AGE = 604800  # 7 days in seconds. Optimize static files for caching
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static")
@@ -165,3 +170,10 @@ CLOUDINARY_STORAGE = {
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 ACCOUNT_USERNAME_BLACKLIST = ["admin", "tagapamahala"]
+
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+        "LOCATION": "unique-snowflake",
+    }
+}
