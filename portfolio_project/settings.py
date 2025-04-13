@@ -17,6 +17,13 @@ from dotenv import load_dotenv
 
 # Load environment variables from .env file in development
 load_dotenv()
+from environ import Env
+import dj_database_url
+
+# Initialise environment variables / Read .env file
+env = Env()
+Env.read_env()
+ENVIRONMENT = env("ENVIRONMENT", default="development")
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -29,6 +36,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get(
     "SECRET_KEY", "django-insecure-xn-0=5r@uqn&wtq35rp4*t#*zkb9__3q0a)!ekcqxr=sv@c!vh"
 )
+SECRET_KEY = env("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
@@ -42,6 +50,16 @@ ALLOWED_HOSTS = [
 # Add your custom domain if you have one
 if os.environ.get("RAILWAY_STATIC_URL"):
     ALLOWED_HOSTS.append(os.environ.get("RAILWAY_STATIC_URL"))
+# This should be set to False in production
+# and DEBUG should be set to True in development
+if ENVIRONMENT == "development":
+    DEBUG = True
+else:
+    DEBUG = False
+
+ALLOWED_HOSTS = ["localhost", "127.0.0.1", "secre-portfolio-dev.up.railway.app"]
+
+CSRF_TRUSTED_ORIGINS = ["https://secre-portfolio-dev.up.railway.app"]
 
 # Application definition
 
@@ -52,12 +70,16 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "cloudinary_storage",
+    "cloudinary",
     "portfolio",
+    "admin_honeypot",
 ]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",  # Add this line after SecurityMiddleware
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -91,29 +113,18 @@ WSGI_APPLICATION = "portfolio_project.wsgi.application"
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 # Ensures SQLite is used regardless of any DATABASE_URL environment variable
+# DATABASES = {
+#   "default": {"ENGINE": "django.db.backends.sqlite3", "NAME": BASE_DIR / "db.sqlite3"}
+# }
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        **env.db(),  # Reads the DATABASE_URL environment variable
+        "CONN_MAX_AGE": 600,
+        "OPTIONS": {
+            "connect_timeout": 10,
+        },
     }
 }
-
-# Protect SQLite database in production environment
-if not DEBUG:
-    import sys
-
-    # Create necessary directory for SQLite database if it doesn't exist
-    os.makedirs(os.path.dirname(BASE_DIR / "db.sqlite3"), exist_ok=True)
-
-    # Ensure SQLite database is writable
-    if sys.platform.startswith("linux"):
-        import stat
-
-        os.chmod(BASE_DIR, stat.S_IRWXU | stat.S_IRWXG | stat.S_IRWXO)
-        if os.path.exists(BASE_DIR / "db.sqlite3"):
-            os.chmod(
-                BASE_DIR / "db.sqlite3", stat.S_IRWXU | stat.S_IRWXG | stat.S_IRWXO
-            )
 
 
 # Password validation
@@ -139,6 +150,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = "static/"
+
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static")
 ]  # Where static files are stored during development
@@ -147,28 +161,28 @@ STATIC_ROOT = os.path.join(
 )  # Where static files will be collected in production
 
 MEDIA_URL = "/media/"
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")  # Where uploaded media files are stored
+
+
+if ENVIRONMENT == "production":
+    DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
+else:
+    MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
+CLOUDINARY_STORAGE = {
+    "CLOUD_NAME": env("CLOUDINARY_CLOUD_NAME"),
+    "API_KEY": env("CLOUDINARY_API_KEY"),
+    "API_SECRET": env("CLOUDINARY_API_SECRET"),
+}
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-# Whitenoise configuration for static files
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+ACCOUNT_USERNAME_BLACKLIST = ["admin", "tagapamahala"]
 
-# Security settings for production
-if not DEBUG:
-    SECURE_HSTS_SECONDS = 31536000  # 1 year
-    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-    SECURE_HSTS_PRELOAD = True
-    # Add proxy SSL header configuration
-    SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
-    # Make SSL redirect configurable (default to True if not specified)
-    SECURE_SSL_REDIRECT = (
-        os.environ.get("SECURE_SSL_REDIRECT", "True").lower() == "true"
-    )
-    SESSION_COOKIE_SECURE = True
-    CSRF_COOKIE_SECURE = True
-    SECURE_BROWSER_XSS_FILTER = True
-    SECURE_CONTENT_TYPE_NOSNIFF = True
-    X_FRAME_OPTIONS = "DENY"
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+        "LOCATION": "unique-snowflake",
+    }
+}

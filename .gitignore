@@ -8,7 +8,9 @@ __pycache__/
 *.pot
 *.pyc
 *.pyo
-.sqlite3
+db.sqlite3
+db.sqlite3-journal
+*.sqlite3
 
 # Virtual environment
 venv/
@@ -20,7 +22,8 @@ env/
 #*.mo
 
 # Media files (if you have media upload functionality)
-#media/
+staticfiles/
+media/
 
 # IDE-specific files (if you're using any IDEs like VS Code or PyCharm)
 .vscode/

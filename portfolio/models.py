@@ -1,4 +1,5 @@
 from django.db import models
+from cloudinary.models import CloudinaryField
 
 # Create your models here.
 
@@ -6,7 +7,7 @@ from django.db import models
 class Project(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField()
-    image = models.ImageField(upload_to="project_images/", blank=True, null=True)
+    image = CloudinaryField("image", blank=True, null=True)
     url = models.URLField(max_length=200)
 
     def __str__(self):
@@ -22,3 +23,21 @@ class Resume(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class About(models.Model):
+    what_i_do = models.TextField(
+        verbose_name="What I Do",
+        help_text="Describe what you do and your professionals background. Use markdown for formatting.",
+        null=True,
+        blank=True,
+    )
+    core_skills = models.TextField(
+        verbose_name="Core Skills",
+        help_text="List your core skills and areas of expertise. Use markdown for formatting.",
+        null=True,
+        blank=True,
+    )
+
+    def __str__(self):
+        return "About and Core Skills"

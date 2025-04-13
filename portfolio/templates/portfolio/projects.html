@@ -17,44 +17,24 @@
 
   <!-- Project List Section -->
   <div class="row row-cols-1 row-cols-md-3 g-4">
-    <!-- Portfolio Project -->
-    <div class="col mb-4 animate-slide-left">
-      <div class="card h-100 project-card">
-        <img src="{% static 'images/portfolio.png' %}" class="card-img-top project-img" alt="Portfolio">
-        <div class="card-body text-center">
-          <h5 class="card-title project-title">Portfolio</h5>
-          <p class="card-text text-muted small">A portfolio site to showcase my projects, skills, and experiences as a web developer.</p>
-        </div>
-        <div class="card-footer text-center border-0 bg-transparent">
-          <a href="https://secrescence-portfolio.up.railway.app/" class="btn btn-outline-dark px-4" target="_blank">View Project</a>
-        </div>
-      </div>
-    </div>
-    
-    <!-- Inside Secre Project -->
-    <div class="col mb-4 animate-slide-left">
-      <div class="card h-100 project-card">
-        <img src="{% static 'images/blog.png' %}" class="card-img-top project-img" alt="Inside Secre">
-        <div class="card-body text-center">
-          <h5 class="card-title project-title">Inside Secre</h5>
-          <p class="card-text text-muted small">A simple blog built with Django to share my ideas and insights with an easy-to-navigate interface.</p>
-        </div>
-        <div class="card-footer text-center border-0 bg-transparent">
-          <a href="https://secrescence.up.railway.app/blog/" class="btn btn-outline-dark px-4" target="_blank">View Project</a>
-        </div>
-      </div>
-    </div>
-    
-    <!-- Student Mental Health Project -->
-    <div class="col mb-4 animate-slide-left">
-      <div class="card h-100 project-card">
-        <img src="{% static 'images/smh.png' %}" class="card-img-top project-img" alt="Student Mental Health">
-        <div class="card-body text-center">
-          <h5 class="card-title project-title">Student Mental Health</h5>
-          <p class="card-text text-muted small">Student Mental Health is an app that prioritizes counseling appointments based on students' mental health using the DERS scale.</p>
-        </div>
-        <div class="card-footer text-center border-0 bg-transparent">
-          <a href="https://github.com/secrescence/student-mental-health" class="btn btn-outline-dark px-4" target="_blank">View Project</a>
+    {% if projects %}
+      {% for project in projects %}
+      <div class="col mb-4 animate-slide-left">
+        <div class="card h-100 project-card">
+          {% if project.image %}
+            <img src="{{ project.image.url }}" class="card-img-top project-img" alt="{{ project.title }}" loading="lazy">
+          {% else %}
+            <div class="card-img-top d-flex align-items-center justify-content-center bg-light" style="height: 200px;">
+                <p class="text-muted">No image available</p>
+            </div>
+          {% endif %}
+          <div class="card-body text-center">
+            <h5 class="card-title project-title">{{ project.title }}</h5>
+            <p class="card-text text-muted small">{{ project.description }}</p>
+          </div>
+          <div class="card-footer text-center border-0 bg-transparent">
+            <a href="{{ project.url }}" class="btn btn-outline-dark px-4" target="_blank">View Project</a>
+          </div>
         </div>
       </div>
     </div>
